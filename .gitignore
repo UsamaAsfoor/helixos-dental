@@ -1,0 +1,10 @@
+node_modules/
+.DS_Store
+.cursor/
+.vercel/
+.video-ref/
+helixos-reel/
+*.mp4
+*.bundle
+.env*
+

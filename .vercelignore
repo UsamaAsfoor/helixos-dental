@@ -1,0 +1,11 @@
+.cursor
+.video-ref
+helixos-reel
+*.mp4
+*.bundle
+GET-IT-LOCAL.sh
+MOVE-TO-LOCAL.sh
+install-local.sh
+scripts
+.DS_Store
+node_modules

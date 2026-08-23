@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>You’re booked — a. Development Agency</title>
+  <meta name="description" content="You’re booked. Check your email for the details, then watch a quick intro before the call." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="../images/development-agency-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #fafaf8;
+      color: #0f0e0c;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    main {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 24px 64px;
+    }
+    .logo {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+      margin-bottom: 28px;
+      filter: invert(1);
+    }
+    .booked-pill {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #ffffff;
+      border: 1px solid #e8e5df;
+      border-radius: 999px;
+      padding: 10px 20px 10px 12px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .booked-check {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #f0faf4;
+      border: 2px solid #22c55e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .booked-pill span {
+      font-size: 15px;
+      font-weight: 600;
+      color: #0f0e0c;
+    }
+    .details {
+      display: none;
+      max-width: 560px;
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #e8e5df;
+      border-radius: 16px;
+      padding: 18px 22px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    .details.is-visible { display: block; }
+    .details dt {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9c9690;
+      margin-bottom: 4px;
+    }
+    .details dd {
+      font-size: 15px;
+      color: #3d3a35;
+      margin: 0 0 12px;
+      line-height: 1.45;
+    }
+    .details dd:last-child { margin-bottom: 0; }
+    .details a { color: #2563eb; font-weight: 600; text-decoration: none; }
+    .details a:hover { text-decoration: underline; }
+    .card {
+      max-width: 760px;
+      width: 100%;
+      border-radius: 24px;
+      padding: 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-glow {
+      position: absolute;
+      top: -50%;
+      left: -20%;
+      width: 140%;
+      height: 200%;
+      pointer-events: none;
+    }
+    .card-inner { position: relative; z-index: 1; }
+    .eyebrow {
+      display: inline-block;
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+    .card h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(32px, 4.5vw, 52px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 0 0 16px;
+    }
+    .card p.lead {
+      font-size: clamp(16px, 1.3vw, 19px);
+      line-height: 1.55;
+      max-width: 520px;
+      margin: 0 auto 28px;
+    }
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 36px;
+      border-radius: 14px;
+      font-size: clamp(16px, 1.4vw, 19px);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      transition: transform 200ms ease, box-shadow 200ms ease;
+    }
+    .cta:hover { transform: translateY(-3px) scale(1.02); }
+    .meta {
+      margin-top: 20px;
+      font-size: 13px;
+      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      letter-spacing: 0.04em;
+    }
+    .intro {
+      background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 55%, #fb923c 100%);
+      box-shadow: 0 24px 60px -16px rgba(251, 146, 60, 0.35);
+      margin-bottom: 24px;
+    }
+    .intro .card-glow { background: radial-gradient(ellipse, rgba(255,255,255,0.35) 0%, transparent 55%); }
+    .intro .eyebrow {
+      color: #7c2d12;
+      border: 1px solid rgba(124, 45, 18, 0.35);
+      background: rgba(255,255,255,0.5);
+    }
+    .intro h2 { color: #1a0f08; }
+    .intro p.lead { color: rgba(26, 15, 8, 0.78); }
+    .intro .cta {
+      background: #1a0f08;
+      color: #fff7ed;
+      box-shadow: 0 12px 36px -8px rgba(0,0,0,0.35), 0 0 0 3px rgba(255,255,255,0.3);
+    }
+    .intro .cta:hover { box-shadow: 0 18px 44px -8px rgba(0,0,0,0.45), 0 0 0 3px rgba(255,255,255,0.45); }
+    .intro .meta { color: rgba(26, 15, 8, 0.6); }
+    .tour {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+      box-shadow: 0 24px 60px -16px rgba(37, 99, 235, 0.45);
+    }
+    .tour .card-glow { background: radial-gradient(ellipse, rgba(255,255,255,0.14) 0%, transparent 55%); }
+    .tour .eyebrow {
+      color: rgba(255,255,255,0.85);
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+    .tour h2 { color: #ffffff; }
+    .tour p.lead { color: rgba(255,255,255,0.85); }
+    .tour .cta {
+      background: #ffffff;
+      color: #1e3a8a;
+      box-shadow: 0 12px 36px -8px rgba(0,0,0,0.35), 0 0 0 3px rgba(255,255,255,0.2);
+    }
+    .tour .cta:hover { box-shadow: 0 18px 44px -8px rgba(0,0,0,0.45), 0 0 0 3px rgba(255,255,255,0.35); }
+    .tour .meta { color: rgba(255,255,255,0.7); }
+    .next {
+      background: #ffffff;
+      border: 1px solid #e8e5df;
+      border-radius: 16px;
+      padding: 28px 32px;
+      max-width: 560px;
+      width: 100%;
+      margin-top: 32px;
+      text-align: left;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    .next-label {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9c9690;
+      margin-bottom: 16px;
+    }
+    .next-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+    .next-row:last-child { margin-bottom: 0; }
+    .next-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #0f0e0c;
+      color: #fafaf8;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .next-row p { font-size: 15px; color: #3d3a35; line-height: 1.5; }
+    .questions {
+      margin-top: 32px;
+      font-size: 14px;
+      color: #b0aca6;
+    }
+    .questions a { color: #0f0e0c; text-decoration: none; font-weight: 500; }
+    .questions a:hover { text-decoration: underline; }
+    @media (max-width: 640px) {
+      .card { padding: 28px 20px; }
+      .next { padding: 22px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <img class="logo" src="../images/development-agency-logo.png" alt="a. Development Agency" width="120" height="40" />
+
+    <div class="booked-pill">
+      <div class="booked-check" aria-hidden="true">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <span>You’re booked. Check your email for the details.</span>
+    </div>
+
+    <dl class="details" id="booking-details">
+      <div id="when-block">
+        <dt>When</dt>
+        <dd id="when-value"></dd>
+      </div>
+      <div id="confirm-block">
+        <dt>Join the call</dt>
+        <dd><a id="confirm-link" href="#" target="_blank" rel="noopener noreferrer">Open Google Meet</a></dd>
+      </div>
+    </dl>
+
+    <section class="card intro">
+      <div class="card-glow" aria-hidden="true"></div>
+      <div class="card-inner">
+        <div class="eyebrow">Start here</div>
+        <h2>Meet a. Development Agency in 2 minutes.</h2>
+        <p class="lead">A quick intro from us before we hop on the call — who we are and what we do.</p>
+        <a class="cta" href="https://www.loom.com/share/0199dd6af6c4453396b3cc71024e1386" target="_blank" rel="noopener noreferrer">
+          <span aria-hidden="true">▶</span>
+          <span>Watch the 2-min intro</span>
+          <span aria-hidden="true" style="font-size:22px;font-weight:400">↗</span>
+        </a>
+        <div class="meta">2 minutes · opens on Loom</div>
+      </div>
+    </section>
+
+    <section class="card tour">
+      <div class="card-glow" aria-hidden="true"></div>
+      <div class="card-inner">
+        <div class="eyebrow">Before our call</div>
+        <h2>Take the 6-minute HelixOS tour.</h2>
+        <p class="lead">See what your Monday mornings look like when your data works for you. Then come to the call with one question.</p>
+        <a class="cta" id="tour-link" href="../tour/">
+          <span aria-hidden="true">▶</span>
+          <span>Start the tour</span>
+          <span aria-hidden="true" style="font-size:22px;font-weight:400">→</span>
+        </a>
+        <div class="meta">6 minutes · audio + captions · works on any device</div>
+      </div>
+    </section>
+
+    <div class="next">
+      <p class="next-label">What happens next</p>
+      <div class="next-row">
+        <div class="next-num">1</div>
+        <p>A team member will reach out shortly to introduce themselves and confirm your call details.</p>
+      </div>
+      <div class="next-row">
+        <div class="next-num">2</div>
+        <p>On the discovery call, we'll map out exactly what your business needs.</p>
+      </div>
+      <div class="next-row">
+        <div class="next-num">3</div>
+        <p>If it's a fit, we start your 3-day setup the same day you sign.</p>
+      </div>
+    </div>
+
+    <p class="questions">Questions? Email us at <a href="mailto:usama@adevagency.com">usama@adevagency.com</a></p>
+  </main>
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const when = (params.get('when') || '').trim();
+      const confirm = (params.get('confirm') || '').trim();
+      const details = document.getElementById('booking-details');
+      const whenEl = document.getElementById('when-value');
+      const confirmLink = document.getElementById('confirm-link');
+      if (when || confirm) {
+        details.classList.add('is-visible');
+        if (when) whenEl.textContent = when;
+        else document.getElementById('when-block').style.display = 'none';
+        if (confirm && /^https?:\/\//i.test(confirm)) confirmLink.href = confirm;
+        else document.getElementById('confirm-block').style.display = 'none';
+      }
+      const tour = document.getElementById('tour-link');
+      const extra = new URLSearchParams();
+      if (confirm) extra.set('confirm', confirm);
+      if (when) extra.set('when', when);
+      const q = extra.toString();
+      if (q) tour.href = '../tour/?' + q;
+    })();
+  </script>
+</body>
+</html>

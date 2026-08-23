@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HelixOS · A Guided Walkthrough</title>
+  <meta name="description" content="A 6-minute walk through your business on HelixOS. Built for your upcoming discovery call." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="../images/development-agency-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="tour.css?v=4" />
+</head>
+<body class="min-h-screen antialiased">
+  <div class="tour-layout">
+    <div class="tour-root" id="tour-root">
+      <header class="tour-header" id="tour-header"></header>
+      <main class="tour-main" id="tour-main"></main>
+      <div id="tour-narration-slot"></div>
+      <div id="tour-complete-slot"></div>
+    </div>
+  </div>
+  <audio id="narration-audio" preload="auto" style="display:none"></audio>
+  <audio id="bg-audio" src="audio/background.mp3" loop preload="auto" aria-hidden="true" style="display:none"></audio>
+  <script src="tour.js?v=5"></script>
+</body>
+</html>
