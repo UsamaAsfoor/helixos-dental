@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HelixHog · Product analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/hog/app.css?v=7" />
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="/hog/">
+      <span class="hog" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="28" height="28"><rect width="32" height="32" rx="8" fill="#F54E00"/><path d="M8 18c0-5 3.5-9 8-9s8 4 8 9v5H8v-5z" fill="#1C1C20"/><circle cx="13" cy="17" r="1.4" fill="#F54E00"/><circle cx="19" cy="17" r="1.4" fill="#F54E00"/><path d="M7 12l3 2M25 12l-3 2M10 8l2 3M22 8l-2 3" stroke="#1C1C20" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </span>
+      <span>
+        <strong>HelixHog</strong>
+        <em>Product analytics</em>
+      </span>
+    </a>
+    <nav>
+      <button data-view="overview" class="active">Overview</button>
+      <button data-view="quiz">Quiz funnel</button>
+      <button data-view="events">Event explorer</button>
+      <button data-view="insights">Insights</button>
+      <button data-view="heatmaps">Heatmaps</button>
+      <button data-view="persons">Persons</button>
+      <button data-view="install">Install</button>
+    </nav>
+    <div class="sidebar-foot">
+      <a href="/">Open site →</a>
+      <span>Meta Pixel left intact</span>
+    </div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <h1 id="page-title">Overview</h1>
+      <div class="topbar-right">
+        <label class="range">
+          <select id="range">
+            <option value="24h">Last 24 hours</option>
+            <option value="7d" selected>Last 7 days</option>
+            <option value="30d">Last 30 days</option>
+            <option value="90d">Last 90 days</option>
+          </select>
+        </label>
+        <span id="live-pill" class="pill">Waiting for events</span>
+      </div>
+    </header>
+    <section id="view"></section>
+  </main>
+  <script src="/hog/app.js?v=7"></script>
+</body>
+</html>

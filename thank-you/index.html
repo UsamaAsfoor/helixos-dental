@@ -6,7 +6,7 @@
   <title>You’re booked — a. Development Agency</title>
   <meta name="description" content="You’re booked. Check your email for the details, then watch a quick intro before the call." />
   <meta name="robots" content="noindex" />
-  <link rel="icon" href="../images/development-agency-logo.png" />
+  <link rel="icon" href="/images/development-agency-logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
@@ -255,17 +255,17 @@ t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '920426713962047');
-fbq('track', 'PageView');
-fbq('track', 'Lead');
 </script>
+<script src="/js/meta-capi.js"></script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=920426713962047&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<script src="/js/helixhog.js?v=3"></script>
 </head>
 <body>
   <main>
-    <img class="logo" src="../images/development-agency-logo.png" alt="a. Development Agency" width="120" height="40" />
+    <img class="logo" src="/images/development-agency-logo.png" alt="a. Development Agency" width="120" height="40" />
 
     <div class="booked-pill">
       <div class="booked-check" aria-hidden="true">
@@ -306,7 +306,7 @@ src="https://www.facebook.com/tr?id=920426713962047&ev=PageView&noscript=1"
         <div class="eyebrow">Before our call</div>
         <h2>Take the 6-minute HelixOS tour.</h2>
         <p class="lead">See what your Monday mornings look like when your data works for you. Then come to the call with one question.</p>
-        <a class="cta" id="tour-link" href="../tour/">
+        <a class="cta" id="tour-link" href="/tour/">
           <span aria-hidden="true">▶</span>
           <span>Start the tour</span>
           <span aria-hidden="true" style="font-size:22px;font-weight:400">→</span>
@@ -353,7 +353,7 @@ src="https://www.facebook.com/tr?id=920426713962047&ev=PageView&noscript=1"
       if (confirm) extra.set('confirm', confirm);
       if (when) extra.set('when', when);
       const q = extra.toString();
-      if (q) tour.href = '../tour/?' + q;
+      if (q) tour.href = '/tour/?' + q;
     })();
   </script>
 </body>

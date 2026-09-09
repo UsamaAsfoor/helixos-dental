@@ -1,0 +1,13 @@
+.git
+.cursor
+.vercel
+helixhog/data
+helixhog/__pycache__
+**/__pycache__
+node_modules
+*.mp4
+helixos-reel
+**/.DS_Store
+*.bundle
+.env*
+*.pyc

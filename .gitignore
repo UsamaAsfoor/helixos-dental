@@ -7,4 +7,7 @@ helixos-reel/
 *.mp4
 *.bundle
 .env*
+helixhog/data/
+__pycache__/
+*.pyc
 

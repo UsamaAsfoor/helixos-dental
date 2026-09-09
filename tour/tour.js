@@ -1,8 +1,8 @@
 (function () {
   "use strict";
 
-  const LOGO = "../images/development-agency-logo.png";
-  const CLAUDE = "../images/fluentOS-tour/claude-code-logo.png";
+  const LOGO = "/images/development-agency-logo.png";
+  const CLAUDE = "/images/fluentOS-tour/claude-code-logo.png";
   const INDUSTRIES = ["Law", "Medical", "Real Estate", "Finance", "Agencies", "Ops", "Consulting"];
   const STEP_LABELS = [
     "Welcome",
@@ -435,7 +435,7 @@
   }
 
   function playNarration() {
-    const src = `audio/step-${state.stepIndex}.mp3?v=3`;
+    const src = `/tour/audio/step-${state.stepIndex}.mp3?v=3`;
     if (!narrationAudio.src.endsWith(src)) narrationAudio.src = src;
     else narrationAudio.currentTime = 0;
     applyMute();

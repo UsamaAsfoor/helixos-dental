@@ -12,10 +12,15 @@ chmod +x serve.sh
 Then open:
 
 - http://127.0.0.1:8765/
+- http://127.0.0.1:8765/b/ — A/B variation (buyer-psychology section order)
+- http://127.0.0.1:8765/quiz/ — AI Business Optimization quiz funnel
 - http://127.0.0.1:8765/dental/
 - http://127.0.0.1:8765/for/dental-practices/
 - http://127.0.0.1:8765/thank-you/
 - http://127.0.0.1:8765/tour/
+- http://127.0.0.1:8765/hog/ — HelixHog analytics (pageviews, sources, funnel, heatmaps)
+
+HelixHog is a PostHog-style tracker that runs beside the Meta Pixel. It does not replace it. Events are stored in `helixhog/data/` (not committed). The tracker only sends from localhost unless you set `data-api-host` on `js/helixhog.js`.
 
 Or without the script:
 
