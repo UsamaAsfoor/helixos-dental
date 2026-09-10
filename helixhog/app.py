@@ -276,7 +276,12 @@ def allowed_capi_source(event_source_url: str, request_host: str, event_name: st
     if path == "/hog" or path.startswith("/hog/") or path.startswith("/hog.js"):
         return False
     if event_name == "Lead":
-        return "/thank-you" in path
+        return (
+            "/thank-you" in path
+            or path.startswith("/quiz")
+            or path in {"/", "/b", "/dental", "/for/dental-practices", "/tour"}
+            or path.startswith("/for/")
+        )
     return event_name == "PageView"
 
 

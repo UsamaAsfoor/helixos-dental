@@ -1051,6 +1051,9 @@
           try {
             sessionStorage.setItem("helixos_call_confirmed", "1");
           } catch (e) {}
+          try {
+            if (window.metaCapi && window.metaCapi.trackLead) window.metaCapi.trackLead({});
+          } catch (e) {}
           paint();
         })
         .catch(() => {

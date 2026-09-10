@@ -57,13 +57,77 @@
     }).catch(function () {});
   }
 
+  var LEAD_KEY = "meta_lead_fired";
+
+  function leadAlreadyFired() {
+    try { return sessionStorage.getItem(LEAD_KEY) === "1"; } catch (e) { return false; }
+  }
+
+  function markLeadFired() {
+    try { sessionStorage.setItem(LEAD_KEY, "1"); } catch (e) {}
+  }
+
+  function fieldValue(form, names) {
+    for (var i = 0; i < names.length; i++) {
+      var el = form.querySelector("[name=\"" + names[i] + "\"], #" + names[i]);
+      if (el && el.value) return String(el.value).trim();
+    }
+    return "";
+  }
+
+  function trackLead(userData) {
+    if (leadAlreadyFired()) return null;
+    var data = userData || {};
+    var eventId = leadEventId();
+    markLeadFired();
+    fbq("track", "Lead", {}, { eventID: eventId });
+    var c = cookies();
+    fetch("/capi/event", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
+      keepalive: true,
+      body: JSON.stringify({
+        event_name: "Lead",
+        event_id: eventId,
+        event_source_url: location.href,
+        fbp: c.fbp,
+        fbc: c.fbc,
+        email: data.email || "",
+        phone: data.phone || "",
+        first_name: data.first_name || data.fn || "",
+        last_name: data.last_name || data.ln || ""
+      })
+    }).catch(function () {});
+    return eventId;
+  }
+
+  window.metaCapi = { trackLead: trackLead };
+
   var pageId = uuid();
   fbq("track", "PageView", {}, { eventID: pageId });
   setTimeout(function () { sendCapi("PageView", pageId); }, 400);
 
-  if (/thank-you/.test(location.pathname)) {
-    var leadId = leadEventId();
-    fbq("track", "Lead", {}, { eventID: leadId });
-    setTimeout(function () { sendCapi("Lead", leadId); }, 450);
+  if (/thank-you/.test(location.pathname) && !leadAlreadyFired()) {
+    trackLead({});
   }
+
+  document.addEventListener("submit", function (ev) {
+    var form = ev.target;
+    if (!form || form.tagName !== "FORM") return;
+    if (form.id === "lead-form" || form.getAttribute("data-skip-meta-lead") === "true") return;
+    var email = fieldValue(form, ["email", "Email", "your-email"]);
+    if (!email) return;
+    trackLead({
+      email: email,
+      phone: fieldValue(form, ["phone", "Phone", "tel", "your-phone"]),
+      first_name: fieldValue(form, ["first_name", "name", "Name", "your-name", "fname"])
+    });
+  }, true);
+
+  window.addEventListener("message", function (ev) {
+    var data = ev && ev.data;
+    var name = typeof data === "string" ? data : data && data.event;
+    if (name === "calendly.event_scheduled") trackLead({});
+  });
 })();

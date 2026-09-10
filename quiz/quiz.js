@@ -400,7 +400,15 @@
     hog("quiz_guide_view", { guide_id: state.guide_id });
     persist({ email_submitted: true });
     try {
-      if (window.fbq) window.fbq("track", "Lead");
+      if (window.metaCapi && window.metaCapi.trackLead) {
+        window.metaCapi.trackLead({
+          email: email,
+          phone: phone,
+          first_name: name,
+        });
+      } else if (window.fbq) {
+        window.fbq("track", "Lead");
+      }
     } catch (err) {}
     const done = cfg.done || {};
     if (el.doneSub) {
