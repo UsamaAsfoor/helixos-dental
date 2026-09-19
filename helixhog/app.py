@@ -30,6 +30,7 @@ META_PIXEL_ID = os.environ.get("META_PIXEL_ID", "920426713962047")
 META_CAPI_TOKEN = os.environ.get("META_CAPI_TOKEN", "").strip()
 META_TEST_EVENT_CODE = os.environ.get("META_TEST_EVENT_CODE", "").strip()
 META_GRAPH_VERSION = os.environ.get("META_GRAPH_VERSION", "v21.0").strip() or "v21.0"
+SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL", "").strip()
 
 MIME = {
     ".html": "text/html; charset=utf-8",
@@ -342,6 +343,80 @@ def capi_lead_event(payload: dict, headers, request_host: str, fallback_ip: str 
     payload = dict(payload or {})
     payload["event_name"] = "Lead"
     return capi_event(payload, headers, request_host, fallback_ip, default_name="Lead")
+
+
+def slack_escape(text: str) -> str:
+    return str(text or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def slack_quiz_lead_body(lead: dict) -> dict:
+    funnel = str(lead.get("funnel") or "")
+    label = FUNNEL_LABELS.get(funnel, funnel or "Quiz")
+    name = slack_escape(lead.get("first_name") or "Unknown")
+    company = slack_escape(lead.get("company") or "—")
+    email = slack_escape(lead.get("email") or "—")
+    phone = slack_escape(lead.get("phone") or "—")
+    guide_id = slack_escape(lead.get("guide_id") or "")
+    answers = format_answer_rows(lead.get("answers") if isinstance(lead.get("answers"), dict) else {})
+    if answers:
+        answer_text = "\n".join(
+            f"• *{slack_escape(row['question'])}*\n    {slack_escape(row['answer'])}" for row in answers
+        )
+    else:
+        answer_text = "_No answers recorded_"
+    source_bits = [lead.get("utm_source"), lead.get("utm_medium"), lead.get("utm_campaign")]
+    source = slack_escape(" / ".join(str(b) for b in source_bits if b) or "direct")
+    path = slack_escape(lead.get("pathname") or "")
+    context = f"Source: {source}"
+    if path:
+        context += f"  ·  `{path}`"
+    if guide_id:
+        context += f"  ·  Guide: {guide_id}"
+    fallback = f"New {label} lead: {lead.get('first_name') or 'Unknown'} · {lead.get('email') or ''}"
+    return {
+        "text": fallback,
+        "blocks": [
+            {
+                "type": "header",
+                "text": {"type": "plain_text", "text": f"New lead · {label}"[:150], "emoji": True},
+            },
+            {
+                "type": "section",
+                "fields": [
+                    {"type": "mrkdwn", "text": f"*Name*\n{name}"},
+                    {"type": "mrkdwn", "text": f"*Practice*\n{company}"},
+                    {"type": "mrkdwn", "text": f"*Email*\n{email}"},
+                    {"type": "mrkdwn", "text": f"*Phone*\n{phone}"},
+                ],
+            },
+            {"type": "section", "text": {"type": "mrkdwn", "text": f"*Answers*\n{answer_text}"}},
+            {"type": "context", "elements": [{"type": "mrkdwn", "text": context}]},
+        ],
+    }
+
+
+def post_slack_webhook(body: dict) -> None:
+    if not SLACK_WEBHOOK_URL:
+        return
+    raw = json.dumps(body).encode("utf-8")
+    req = Request(
+        SLACK_WEBHOOK_URL,
+        data=raw,
+        method="POST",
+        headers={"Content-Type": "application/json"},
+    )
+    try:
+        with urlopen(req, timeout=8) as resp:
+            resp.read()
+    except (HTTPError, URLError, TimeoutError, OSError) as exc:
+        print(f"[helixhog] Slack lead notify failed: {exc}", flush=True)
+
+
+def queue_quiz_lead_slack(lead: dict) -> None:
+    if not SLACK_WEBHOOK_URL:
+        print("[helixhog] Slack lead skipped — SLACK_WEBHOOK_URL is not set", flush=True)
+        return
+    threading.Thread(target=post_slack_webhook, args=(slack_quiz_lead_body(lead),), daemon=True).start()
 
 
 def rows_since(since: int, event: str | None = None) -> list[sqlite3.Row]:
@@ -779,6 +854,8 @@ def upsert_quiz(payload: dict) -> dict:
     conn = db()
     with _lock:
         row = conn.execute("SELECT * FROM quiz_sessions WHERE session_id = ?", (sid,)).fetchone()
+        already_lead = bool(row and (row["email_submitted"] or str(row["email"] or "").strip()))
+        is_new_lead = bool(str(email or "").strip()) and not already_lead
         email_submitted = 1 if payload.get("email_submitted") or email else (row["email_submitted"] if row else 0)
         cta_book = 1 if payload.get("cta_book") else (row["cta_book"] if row else 0)
         if row:
@@ -845,6 +922,25 @@ def upsert_quiz(payload: dict) -> dict:
                 ),
             )
         conn.commit()
+    if is_new_lead:
+        prior_funnel = ""
+        if row and "funnel" in row.keys():
+            prior_funnel = str(row["funnel"] or "")
+        queue_quiz_lead_slack(
+            {
+                "first_name": name or ((row["first_name"] if row else "") or ""),
+                "email": email or ((row["email"] if row else "") or ""),
+                "phone": phone or ((row["phone"] if row else "") or ""),
+                "company": company or ((row["company"] if row else "") or ""),
+                "funnel": funnel_name or prior_funnel or session_funnel(payload),
+                "answers": answers,
+                "guide_id": str(payload.get("guide_id") or (row["guide_id"] if row else "") or ""),
+                "utm_source": str(payload.get("utm_source") or (row["utm_source"] if row else "") or ""),
+                "utm_medium": str(payload.get("utm_medium") or (row["utm_medium"] if row else "") or ""),
+                "utm_campaign": str(payload.get("utm_campaign") or (row["utm_campaign"] if row else "") or ""),
+                "pathname": str(payload.get("pathname") or (row["pathname"] if row else "") or ""),
+            }
+        )
     return {"ok": True, "session_id": sid}
 
 
