@@ -2,7 +2,7 @@
   "use strict";
 
   const LOGO = "/images/development-agency-logo.png";
-  const CLAUDE = "/images/fluentOS-tour/claude-code-logo.png";
+  const CLAUDE = "/images/helixos-tour/claude-code-logo.png";
   const INDUSTRIES = ["Law", "Medical", "Real Estate", "Finance", "Agencies", "Ops", "Consulting"];
   const STEP_LABELS = [
     "Welcome",
@@ -543,8 +543,8 @@
       <p class="tour-step-sub">At the core is <strong>Claude Code</strong>— the agentic AI engine from Anthropic. But Claude on its own doesn't know your business. It doesn't know your customers, your tools, your workflows, or your data. HelixOS is the infrastructure that wraps around it — so the AI becomes yours.</p>
       <div class="tour-whatis-diagram">
         <div class="tour-whatis-core-wrap" aria-label="Claude Code wrapped by HelixOS">
-          <div class="tour-whatis-fluentos-ring">
-            <div class="tour-whatis-fluentos-label" aria-hidden="true"><img src="${LOGO}" alt="" width="120" height="24" class="tour-whatis-fluentos-logo"/></div>
+          <div class="tour-whatis-helixos-ring">
+            <div class="tour-whatis-helixos-label" aria-hidden="true"><img src="${LOGO}" alt="" width="120" height="24" class="tour-whatis-helixos-logo"/></div>
             <div class="tour-whatis-orange-halo" aria-hidden="true">
               <div class="tour-whatis-claude-disc">
                 <img src="${CLAUDE}" alt="Claude Code — Anthropic's agentic AI engine" width="120" height="120" class="tour-whatis-claude-logo"/>

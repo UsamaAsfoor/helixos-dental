@@ -1,6 +1,6 @@
 # a. Development Agency — Dental Landing Page (Local Replica)
 
-Exact static replica of [fluentaiconsulting.com/dental](https://www.fluentaiconsulting.com/dental) (`/for/dental-practices`).
+Exact static replica of [adevagency.com/dental](https://www.adevagency.com/dental) (`/for/dental-practices`).
 
 ## Run locally
 
@@ -33,20 +33,20 @@ python3 -m http.server 8765 --bind 127.0.0.1
 This repo lives at:
 
 ```bash
-~/fluentaiconsulting-dental
+~/helixos-dental
 ```
 
 Run it:
 
 ```bash
-cd ~/fluentaiconsulting-dental
+cd ~/helixos-dental
 ./serve.sh
 ```
 
 Portable backup bundle:
 
 ```bash
-~/fluentaiconsulting-dental.bundle
+~/helixos-dental.bundle
 ```
 
 ## Calendly MCP

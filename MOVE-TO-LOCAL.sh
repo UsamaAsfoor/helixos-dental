@@ -3,7 +3,7 @@
 set -euo pipefail
 
 DOWNLOAD_URL="${1:-https://shelter-bills-submission-quiz.trycloudflare.com/fluentai-dental-local.zip}"
-TARGET="${2:-$HOME/fluentaiconsulting-dental}"
+TARGET="${2:-$HOME/helixos-dental}"
 TMP_ZIP="${TMPDIR:-/tmp}/fluentai-dental-local.zip"
 
 echo "Downloading site (~13MB)..."

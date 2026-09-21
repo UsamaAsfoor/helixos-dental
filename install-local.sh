@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
-TARGET="${1:-$HOME/fluentaiconsulting-dental}"
+TARGET="${1:-$HOME/helixos-dental}"
 ZIP="$(cd "$(dirname "$0")" && pwd)/fluentai-dental-local.zip"
 if [[ -f "$ZIP" ]]; then
   rm -rf "$TARGET"
   unzip -q "$ZIP" -d "$(dirname "$TARGET")"
-  mv "$(dirname "$TARGET")/fluentaiconsulting-dental" "$TARGET" 2>/dev/null || true
+  mv "$(dirname "$TARGET")/helixos-dental" "$TARGET" 2>/dev/null || true
 else
-  BUNDLE="$(cd "$(dirname "$0")" && pwd)/fluentaiconsulting-dental.bundle"
+  BUNDLE="$(cd "$(dirname "$0")" && pwd)/helixos-dental.bundle"
   rm -rf "$TARGET"
   git clone "$BUNDLE" "$TARGET"
 fi
