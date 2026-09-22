@@ -1,0 +1,143 @@
+/* a. Development Agency — light editorial clinic. Not the cloned dark SaaS look. */
+:root {
+  --paper: #f3eee4;
+  --paper-deep: #e8e0d2;
+  --ink: #1c1814;
+  --muted: #6a6156;
+  --forest: #0d6b56;
+  --forest-deep: #1f3d34;
+  --copper: #c45a1a;
+  --copper-deep: #a34814;
+  --panel: #fffaf2;
+  --line: #ddd2c0;
+  --umber: #2a2218;
+  --display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --sans: "Source Sans 3", "Source Sans Pro", "Helvetica Neue", sans-serif;
+}
+
+html, body {
+  background: var(--paper) !important;
+  color: var(--ink);
+  font-family: var(--sans);
+}
+
+::selection { background: #0d6b5633; color: var(--ink); }
+
+h1, h2, h3 {
+  font-family: var(--display) !important;
+  letter-spacing: -0.02em;
+}
+
+#site-nav img,
+nav img {
+  filter: invert(1);
+}
+
+img[alt="Claude Code"] {
+  opacity: 1 !important;
+  filter: none !important;
+}
+.book-logo { filter: invert(1) !important; }
+
+#site-nav.scrolled {
+  background: rgba(243, 238, 228, 0.94) !important;
+  border-bottom-color: var(--line) !important;
+  backdrop-filter: blur(16px) !important;
+}
+
+.desktop-nav-links a:hover { color: var(--ink) !important; }
+
+.cta-btn,
+.cta-btn-secondary,
+.sticky-cta-bar a,
+.mobile-menu-overlay .menu-cta,
+.book-continue,
+nav .links a.cta {
+  border-radius: 6px !important;
+  font-family: var(--sans) !important;
+}
+
+.cta-btn,
+.sticky-cta-bar a,
+.mobile-menu-overlay .menu-cta,
+nav .links a.cta,
+.book-continue {
+  background: var(--copper) !important;
+  color: #fff !important;
+}
+.cta-btn:hover,
+.book-continue:hover { background: var(--copper-deep) !important; }
+
+.cta-btn-secondary {
+  color: var(--ink) !important;
+  border-color: var(--line) !important;
+}
+.cta-btn-secondary:hover {
+  border-color: var(--forest) !important;
+  background: #0d6b560f !important;
+}
+
+.card-surface {
+  background: var(--panel) !important;
+  border-color: var(--line) !important;
+  border-radius: 4px !important;
+}
+.card-surface:hover { border-color: var(--forest) !important; }
+
+.badge-pill {
+  font-family: var(--sans) !important;
+  color: var(--ink) !important;
+  background: var(--panel) !important;
+  border-color: var(--line) !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+.badge-pill.accent {
+  background: #0d6b5614 !important;
+  color: var(--forest) !important;
+  border-color: #0d6b5640 !important;
+}
+
+.viktor-halo,
+[style*="background-size:80px 80px"],
+[style*="radial-gradient(ellipse at center"] {
+  display: none !important;
+}
+
+.landing-root {
+  background: var(--paper);
+}
+
+.mobile-menu-overlay {
+  background: rgba(243, 238, 228, 0.98) !important;
+}
+.mobile-menu-overlay a {
+  font-family: var(--sans) !important;
+  color: var(--ink) !important;
+  border-bottom-color: var(--line) !important;
+}
+.mobile-menu-close { color: var(--ink) !important; }
+
+.sticky-cta-bar {
+  background: rgba(243, 238, 228, 0.96) !important;
+  border-top-color: var(--line) !important;
+}
+
+#book-form {
+  background: var(--forest-deep) !important;
+}
+#book-form h2,
+#book-form > div > p {
+  color: #f3eee4 !important;
+}
+.book-card { border-radius: 4px !important; }
+
+.footer-inner {
+  background: var(--umber) !important;
+  color: #b8ad9c !important;
+  border-top-color: #3d3428 !important;
+}
+.footer-inner img { filter: none !important; opacity: 0.75; }
+.footer-inner a { color: #cfc4b2 !important; }
+
+.book-progress-item { font-family: var(--sans) !important; }

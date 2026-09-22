@@ -4,19 +4,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>You’re booked — a. Development Agency</title>
-  <meta name="description" content="You’re booked. Check your email for the details, then take the HelixOS tour before the call." />
+  <meta name="description" content="You’re booked. Check your email, then walk through HelixOS before the call." />
   <meta name="robots" content="noindex" />
   <link rel="icon" href="/images/development-agency-logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,650;0,9..144,700;1,9..144,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'DM Sans', sans-serif;
-      background: #fafaf8;
-      color: #0f0e0c;
+      font-family: var(--sans), sans-serif;
+      background: #f3eee4;
+      color: #1c1814;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
@@ -25,32 +25,31 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 48px 24px 64px;
+      padding: 56px 24px 80px;
     }
     .logo {
       height: 40px;
       width: auto;
       object-fit: contain;
-      margin-bottom: 28px;
+      margin-bottom: 32px;
       filter: invert(1);
     }
     .booked-pill {
       display: flex;
       align-items: center;
       gap: 12px;
-      background: #ffffff;
-      border: 1px solid #e8e5df;
-      border-radius: 999px;
-      padding: 10px 20px 10px 12px;
+      background: #fffaf2;
+      border: 1px solid #ddd2c0;
+      border-radius: 6px;
+      padding: 12px 18px 12px 12px;
       margin-bottom: 24px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
     .booked-check {
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: #f0faf4;
-      border: 2px solid #22c55e;
+      background: #e7f1ec;
+      border: 2px solid #0d6b56;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -59,61 +58,60 @@
     .booked-pill span {
       font-size: 15px;
       font-weight: 600;
-      color: #0f0e0c;
+      color: #1c1814;
     }
     .details {
       display: none;
       max-width: 560px;
       width: 100%;
-      background: #ffffff;
-      border: 1px solid #e8e5df;
-      border-radius: 16px;
-      padding: 18px 22px;
+      background: #fffaf2;
+      border: 1px solid #ddd2c0;
+      border-radius: 6px;
+      padding: 20px 22px;
       margin-bottom: 24px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
     }
     .details.is-visible { display: block; }
     .details dt {
-      font-family: 'IBM Plex Mono', monospace;
+      font-family: var(--sans), sans-serif;
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #9c9690;
+      color: #8a8074;
       margin-bottom: 4px;
     }
     .details dd {
       font-size: 15px;
-      color: #3d3a35;
+      color: #6a6156;
       margin: 0 0 12px;
       line-height: 1.45;
     }
     .details dd:last-child { margin-bottom: 0; }
-    .details a { color: #2563eb; font-weight: 600; text-decoration: none; }
+    .details a { color: #0d6b56; font-weight: 600; text-decoration: none; }
     .details a:hover { text-decoration: underline; }
     .card {
-      max-width: 760px;
+      max-width: 720px;
       width: 100%;
-      border-radius: 24px;
-      padding: 40px;
+      border-radius: 6px;
+      padding: 48px 40px 44px;
       text-align: center;
       position: relative;
       overflow: hidden;
     }
     .card-glow {
       position: absolute;
-      top: -50%;
-      left: -20%;
-      width: 140%;
-      height: 200%;
+      top: -40%;
+      right: -10%;
+      width: 70%;
+      height: 90%;
       pointer-events: none;
     }
     .card-inner { position: relative; z-index: 1; }
     .eyebrow {
       display: inline-block;
-      font-family: 'IBM Plex Mono', ui-monospace, monospace;
+      font-family: var(--sans), sans-serif;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       padding: 6px 14px;
@@ -121,73 +119,71 @@
       margin-bottom: 20px;
     }
     .card h2 {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(32px, 4.5vw, 52px);
+      font-family: var(--display), Georgia, serif;
+      font-size: clamp(30px, 4.4vw, 48px);
       font-weight: 700;
-      line-height: 1.05;
+      line-height: 1.12;
       letter-spacing: -0.02em;
       margin: 0 0 16px;
     }
     .card p.lead {
-      font-size: clamp(16px, 1.3vw, 19px);
-      line-height: 1.55;
-      max-width: 520px;
+      font-size: clamp(16px, 1.3vw, 18px);
+      line-height: 1.6;
+      max-width: 500px;
       margin: 0 auto 28px;
     }
     .cta {
       display: inline-flex;
       align-items: center;
-      gap: 14px;
-      padding: 18px 36px;
-      border-radius: 14px;
-      font-size: clamp(16px, 1.4vw, 19px);
+      gap: 12px;
+      padding: 16px 28px;
+      border-radius: 6px;
+      font-size: clamp(15px, 1.3vw, 17px);
       font-weight: 700;
       letter-spacing: -0.01em;
       text-decoration: none;
-      transition: transform 200ms ease, box-shadow 200ms ease;
+      transition: background 160ms ease, transform 160ms ease;
     }
-    .cta:hover { transform: translateY(-3px) scale(1.02); }
+    .cta:hover { transform: translateY(-2px); }
     .meta {
-      margin-top: 20px;
+      margin-top: 18px;
       font-size: 13px;
-      font-family: 'IBM Plex Mono', ui-monospace, monospace;
-      letter-spacing: 0.04em;
+      font-family: var(--sans), sans-serif;
+      letter-spacing: 0.03em;
     }
     .tour {
-      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
-      box-shadow: 0 24px 60px -16px rgba(37, 99, 235, 0.45);
+      background: #1f3d34;
+      border: 1px solid #1f3d34;
     }
-    .tour .card-glow { background: radial-gradient(ellipse, rgba(255,255,255,0.14) 0%, transparent 55%); }
+    .tour .card-glow { background: radial-gradient(ellipse at 80% 10%, rgba(196,90,26,0.28) 0%, transparent 58%); }
     .tour .eyebrow {
-      color: rgba(255,255,255,0.85);
-      border: 1px solid rgba(255,255,255,0.35);
+      color: #d5cbb8;
+      border: 1px solid rgba(213,203,184,0.35);
     }
-    .tour h2 { color: #ffffff; }
-    .tour p.lead { color: rgba(255,255,255,0.85); }
+    .tour h2 { color: #fffaf2; }
+    .tour p.lead { color: #d5cbb8; }
     .tour .cta {
-      background: #ffffff;
-      color: #1e3a8a;
-      box-shadow: 0 12px 36px -8px rgba(0,0,0,0.35), 0 0 0 3px rgba(255,255,255,0.2);
+      background: #c45a1a;
+      color: #fffaf2;
     }
-    .tour .cta:hover { box-shadow: 0 18px 44px -8px rgba(0,0,0,0.45), 0 0 0 3px rgba(255,255,255,0.35); }
-    .tour .meta { color: rgba(255,255,255,0.7); }
+    .tour .cta:hover { background: #a34814; }
+    .tour .meta { color: #b8ae9c; }
     .next {
-      background: #ffffff;
-      border: 1px solid #e8e5df;
-      border-radius: 16px;
+      background: #fffaf2;
+      border: 1px solid #ddd2c0;
+      border-radius: 6px;
       padding: 28px 32px;
       max-width: 560px;
       width: 100%;
-      margin-top: 32px;
+      margin-top: 28px;
       text-align: left;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
     }
     .next-label {
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #9c9690;
+      letter-spacing: 0.12em;
+      color: #0d6b56;
       margin-bottom: 16px;
     }
     .next-row {
@@ -201,8 +197,8 @@
       width: 24px;
       height: 24px;
       border-radius: 50%;
-      background: #0f0e0c;
-      color: #fafaf8;
+      background: #0d6b56;
+      color: #fffaf2;
       font-size: 12px;
       font-weight: 700;
       display: flex;
@@ -211,16 +207,16 @@
       flex-shrink: 0;
       margin-top: 1px;
     }
-    .next-row p { font-size: 15px; color: #3d3a35; line-height: 1.5; }
+    .next-row p { font-size: 15px; color: #6a6156; line-height: 1.5; }
     .questions {
-      margin-top: 32px;
+      margin-top: 36px;
       font-size: 14px;
-      color: #b0aca6;
+      color: #8a8074;
     }
-    .questions a { color: #0f0e0c; text-decoration: none; font-weight: 500; }
+    .questions a { color: #1c1814; text-decoration: none; font-weight: 600; }
     .questions a:hover { text-decoration: underline; }
     @media (max-width: 640px) {
-      .card { padding: 28px 20px; }
+      .card { padding: 32px 20px; }
       .next { padding: 22px 20px; }
     }
   </style>
@@ -242,6 +238,7 @@ src="https://www.facebook.com/tr?id=920426713962047&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 <script src="/js/helixhog.js?v=3"></script>
+  <link rel="stylesheet" href="/css/brand.css?v=1" />
 </head>
 <body>
   <main>
@@ -249,7 +246,7 @@ src="https://www.facebook.com/tr?id=920426713962047&ev=PageView&noscript=1"
 
     <div class="booked-pill">
       <div class="booked-check" aria-hidden="true">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0d6b56" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
       </div>
       <span>You’re booked. Check your email for the details.</span>
     </div>
@@ -269,8 +266,8 @@ src="https://www.facebook.com/tr?id=920426713962047&ev=PageView&noscript=1"
       <div class="card-glow" aria-hidden="true"></div>
       <div class="card-inner">
         <div class="eyebrow">Before our call</div>
-        <h2>Take the 6-minute HelixOS tour.</h2>
-        <p class="lead">See what your Monday mornings look like when your data works for you. Then come to the call with one question.</p>
+        <h2>Walk through HelixOS.</h2>
+        <p class="lead">A short look at how we embed as your engineering team — design, build, and stay. Then come to the call with one thing you’d hire for.</p>
         <a class="cta" id="tour-link" href="/tour/">
           <span aria-hidden="true">▶</span>
           <span>Start the tour</span>
@@ -288,11 +285,11 @@ src="https://www.facebook.com/tr?id=920426713962047&ev=PageView&noscript=1"
       </div>
       <div class="next-row">
         <div class="next-num">2</div>
-        <p>On the discovery call, we'll map out exactly what your business needs.</p>
+        <p>On the discovery call, we'll map what you'd hire engineers to build — and whether we're the right partner.</p>
       </div>
       <div class="next-row">
         <div class="next-num">3</div>
-        <p>If it's a fit, we start your 3-day setup the same day you sign.</p>
+        <p>If it's a fit, we start the first build the same day you sign.</p>
       </div>
     </div>
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""HelixHog — self-hosted product analytics (PostHog-style) for the HelixOS site."""
+"""HelixHog — self-hosted product analytics (PostHog-style) for the site."""
 
 from __future__ import annotations
 

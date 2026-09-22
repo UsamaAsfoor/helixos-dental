@@ -1,18 +1,20 @@
 :root {
-  --bg: #eef5f4;
-  --bg-deep: #e3eeec;
-  --panel: #ffffff;
-  --ink: #173038;
-  --muted: #5c7176;
-  --dim: #7a8e93;
-  --line: #d5e4e1;
-  --line-soft: #e4eeec;
-  --teal: #1a7a78;
-  --teal-deep: #146663;
-  --mint: #b8e0d8;
-  --mint-wash: #e7f5f2;
+  --bg: #f3eee4;
+  --bg-deep: #e8e0d2;
+  --panel: #fffaf2;
+  --ink: #1c1814;
+  --muted: #6a6156;
+  --dim: #8a8074;
+  --line: #ddd2c0;
+  --line-soft: #e8e0d2;
+  --teal: #0d6b56;
+  --teal-deep: #0a5746;
+  --mint: #d5e8e1;
+  --mint-wash: #e7f1ec;
   --danger: #c45c5c;
-  --shadow: 0 10px 40px rgba(23, 48, 56, 0.08);
+  --shadow: 0 10px 40px rgba(28, 24, 20, 0.08);
+  --display: "Fraunces", Georgia, serif;
+  --sans: "Source Sans 3", "Helvetica Neue", sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,7 +24,7 @@ html, body {
   overflow: hidden;
 }
 body {
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--sans), sans-serif;
   background: var(--bg);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
@@ -76,12 +78,13 @@ body {
   height: 28px;
   width: auto;
   opacity: 0.92;
+  filter: invert(1);
 }
 .quiz-step-meta {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  font-family: "IBM Plex Mono", monospace;
+  font-family: var(--sans), sans-serif;
   font-size: 0.64rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -185,7 +188,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  font-family: "IBM Plex Mono", monospace;
+  font-family: var(--sans), sans-serif;
   font-size: 0.62rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -208,7 +211,7 @@ body {
 }
 
 .intro-headline {
-  font-family: "Playfair Display", serif;
+  font-family: var(--display), serif;
   font-weight: 700;
   font-size: clamp(1.42rem, 5.8vw, 2rem);
   line-height: 1.14;
@@ -268,7 +271,7 @@ body {
 }
 .scene-badge svg { color: var(--teal); flex-shrink: 0; }
 .scene-live {
-  font-family: "IBM Plex Mono", monospace;
+  font-family: var(--sans), sans-serif;
   font-size: 0.58rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -394,7 +397,7 @@ body {
   border-radius: 50%;
   background: #e7f5f2;
   color: var(--teal-deep);
-  font-family: "IBM Plex Mono", monospace;
+  font-family: var(--sans), sans-serif;
   font-size: 0.58rem;
   font-weight: 700;
 }
@@ -443,7 +446,7 @@ body {
   border-top: 1px solid var(--line-soft);
 }
 .pms-chip {
-  font-family: "IBM Plex Mono", monospace;
+  font-family: var(--sans), sans-serif;
   font-size: 0.54rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -500,7 +503,7 @@ body {
   padding-bottom: 1rem;
 }
 .q-title {
-  font-family: "Playfair Display", serif;
+  font-family: var(--display), serif;
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.02em;
@@ -532,7 +535,7 @@ body {
   border: 1px solid var(--line);
   border-radius: 14px;
   color: var(--ink);
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--sans), sans-serif;
   font-size: 0.95rem;
   font-weight: 600;
   line-height: 1.3;
@@ -579,12 +582,12 @@ body {
   justify-content: center;
   background: var(--teal);
   color: #fff;
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--sans), sans-serif;
   font-weight: 700;
   font-size: 1.05rem;
   letter-spacing: 0.02em;
   padding: 0.9rem 1.35rem;
-  border-radius: 999px;
+  border-radius: 6px;
   text-decoration: none;
   border: none;
   cursor: pointer;
@@ -604,11 +607,11 @@ body {
   justify-content: center;
   background: #fff;
   color: var(--ink);
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--sans), sans-serif;
   font-weight: 600;
   font-size: 1rem;
   padding: 0.95rem 1.5rem;
-  border-radius: 999px;
+  border-radius: 6px;
   text-decoration: none;
   border: 1px solid var(--line);
   cursor: pointer;
@@ -621,7 +624,7 @@ body {
 /* ── Capture & Done ── */
 .capture-copy h1,
 .done-copy h1 {
-  font-family: "Playfair Display", serif;
+  font-family: var(--display), serif;
   font-weight: 700;
   line-height: 1.12;
   letter-spacing: -0.02em;
@@ -639,7 +642,7 @@ body {
 
 .field { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.9rem; }
 .field label {
-  font-family: "IBM Plex Mono", monospace;
+  font-family: var(--sans), sans-serif;
   font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -651,7 +654,7 @@ body {
   border: 1px solid var(--line);
   border-radius: 12px;
   color: var(--ink);
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--sans), sans-serif;
   font-size: 1.05rem;
   padding: 1rem 1.05rem;
   min-height: 52px;
@@ -690,7 +693,7 @@ body {
   box-shadow: var(--shadow);
 }
 .guide-card h2 {
-  font-family: "Playfair Display", serif;
+  font-family: var(--display), serif;
   font-size: 1.35rem;
   margin-bottom: 0.85rem;
 }
@@ -711,7 +714,7 @@ body {
 .focus-list li::before { content: "✓"; color: var(--teal); font-weight: 700; }
 .guide-section { margin-top: 1.1rem; }
 .guide-section h3 {
-  font-family: "IBM Plex Mono", monospace;
+  font-family: var(--sans), sans-serif;
   font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -727,7 +730,7 @@ body {
   z-index: 1;
   padding: 0.45rem 1.15rem 0.7rem;
   text-align: center;
-  font-family: "IBM Plex Mono", monospace;
+  font-family: var(--sans), sans-serif;
   font-size: 0.58rem;
   color: #8aa0a4;
   letter-spacing: 0.04em;
